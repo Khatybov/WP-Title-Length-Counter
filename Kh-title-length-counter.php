@@ -18,4 +18,17 @@ if (!defined('ABSPATH')) {
 
 }
 
-// not on the front end!!!!!
+if (!is_admin()) {
+    function kh_title_length_counter($title)
+    {
+
+        $length = strlen($title);
+
+        $length = $length ? "($length)" : "";
+
+        return $title . $length;
+    }
+
+    add_filter("the_title", "kh_title_length_counter");
+
+}
