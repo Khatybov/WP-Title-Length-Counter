@@ -18,17 +18,24 @@ if (!defined('ABSPATH')) {
 
 }
 
+// check if the current screen belongs to the admin area
 if (!is_admin()) {
+
+    // the function itself, which handles the title
+    // $title - the post title (wow...)
     function kh_title_length_counter($title)
     {
-
+        // Get the title length
         $length = strlen($title);
 
+        // Format result if the title is not empty
+        // Do nothing if the title is empty
         $length = $length ? "($length)" : "";
 
+        // return the result
         return $title . $length;
     }
 
+    // call the function when about to show the title
     add_filter("the_title", "kh_title_length_counter");
-
 }
