@@ -10,8 +10,8 @@ Domain Path:  /languages
 License:      GPL v2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.txt
 
-A very simple plugin
-
-== Description ==
-
-This plugin counts the number of characters and adds the result to a post title
+A very simple plugin that: 
+- Counts the number of characters of a post title
+- Adds the number to the end of the title
+- Does nothing if the title is empty 
+- Does nothing if the current page is in the admin area 
