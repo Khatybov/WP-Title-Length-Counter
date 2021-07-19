@@ -33,7 +33,7 @@ if (!is_admin()) {
         $length = $length ? "($length)" : "";
 
         // return the result
-        return $title . $length;
+        return $title . " " . $length;
     }
 
     // call the function when about to show the title
