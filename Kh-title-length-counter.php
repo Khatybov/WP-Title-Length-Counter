@@ -30,10 +30,10 @@ if (!is_admin()) {
 
         // Format result if the title is not empty
         // Do nothing if the title is empty
-        $length = $length ? "($length)" : "";
+        $length = $length ? " ($length)" : "";
 
         // return the result
-        return $title . " " . $length;
+        return $title . $length;
     }
 
     // call the function when about to show the title
