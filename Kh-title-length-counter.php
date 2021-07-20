@@ -12,7 +12,7 @@ Description: A very simple plugin that: - Counts the number of characters of a p
  */
 
 // disable direct file access
-if (!defined('ABSPATH')) {
+if (!defined("ABSPATH")) {
 
     exit;
 
@@ -23,8 +23,13 @@ if (!is_admin()) {
 
     // the function itself, which handles the title
     // $title - the post title (wow...)
-    function kh_title_length_counter($title)
+    function kh_title_length_counter($title, $id = null)
     {
+        // exit if there us no post id
+        if (!$id) {
+            return $title;
+        }
+
         // Get the title length
         $length = strlen($title);
 
@@ -37,5 +42,24 @@ if (!is_admin()) {
     }
 
     // call the function when about to show the title
-    add_filter("the_title", "kh_title_length_counter");
+    add_filter("the_title", "kh_title_length_counter", 10, 2);
 }
+
+// ok. the tricky part: filter "the_title" fires two times when showing a navigation menu.
+// So, the idea is to remove the filter before constructing the menu and add it back after that
+
+// remove the title filter before working on the menu
+function kh_title_length_counter_remove_title_filter($output, $args)
+{
+    remove_filter("the_title", "kh_title_length_counter", 10, 2);
+    return $output;
+}
+add_filter("pre_wp_nav_menu", "kh_title_length_counter_remove_title_filter", 10, 2);
+
+// add the title filter back after finishing working on the menu
+function kh_title_length_counter_add_title_filter($items, $args)
+{
+    add_filter("the_title", "kh_title_length_counter", 10, 2);
+    return $items;
+}
+add_filter("wp_nav_menu_items", "kh_title_length_counter_add_title_filter", 10, 2);
